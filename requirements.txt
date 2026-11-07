@@ -1,0 +1,9 @@
+scikit-learn>=1.4
+xgboost
+tensorflow
+imbalanced-learn
+pandas
+numpy
+scipy
+matplotlib
+seaborn

@@ -1,0 +1,4 @@
+,Encounters,Patients,Readmitted <30,Positive rate (%)
+Train,59616,42032,6799,11.4
+Validation,19693,14004,2196,11.15
+Test,20031,13951,2319,11.58
