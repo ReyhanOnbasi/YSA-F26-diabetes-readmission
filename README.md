@@ -27,3 +27,11 @@ The notebook downloads the data automatically.
 ## Requirements
 Python 3.10+, scikit-learn >= 1.4, xgboost, tensorflow/keras, imbalanced-learn, pandas, numpy, scipy,
 matplotlib, seaborn (all preinstalled on Kaggle and Google Colab).
+
+## Revision notes
+- The original model training, sample splits, ROC-AUC, PR-AUC and F1 results are unchanged.
+- Paired bootstrap p-values now include a finite-resample continuity adjustment (B = 1000).
+- Encounter-level and patient-level experiments have distinct test sets; their difference is descriptive, not a causal leakage effect.
+- The main patient split is group-disjoint. The sklearn MLP's *internal* early-stopping validation is row-wise within its training fold, a documented limitation.
+- The Keras embedding model reserves 10% of its training patients for early stopping.
+- The GitHub URL shown in the reports must be opened and checked by the student before submission.
