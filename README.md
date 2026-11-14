@@ -7,17 +7,20 @@ Six algorithm families are compared – Logistic Regression, k-NN, Gaussian Naiv
 artificial neural networks (a scikit-learn MLP and a Keras network with categorical embeddings) – using a
 patient-grouped stratified 60/20/20 train/validation/test split and leakage-free pipelines.
 
-- Hyper-parameters: patient-grouped 3-fold cross-validation inside the training set (92 configurations)
+- Hyper-parameters: patient-grouped 3-fold cross-validation inside the training set (122 configurations; for the
+  MLP the number of training epochs is a hyper-parameter, so no random encounter-level hold-out is used for early stopping)
 - Validation set: model comparison and decision-threshold selection
-- Test set: single final evaluation with patient-level bootstrap confidence intervals
+- Test set: single final evaluation with patient-level bootstrap confidence intervals and a patient-level paired
+  permutation test with Holm correction
 - Additional analyses: neural architecture experiments and overfitting curves, patient-grouped 5-fold
-  cross-validation, class weighting vs SMOTE (train-only, inside an imbalanced-learn pipeline),
-  encounter- vs patient-level splitting, learning curves, calibration, permutation importance, subgroup analysis
+  cross-validation (reported descriptively), class weighting vs SMOTE-NC (train-only, inside an imbalanced-learn
+  pipeline), encounter- vs patient-level splitting with a matched check on fixed test encounters, learning curves,
+  calibration, permutation importance, subgroup analysis
 
 ## Files
-- `YSA_F26_readmission.ipynb` – notebook with all outputs (run on Kaggle Notebooks, 4 CPU cores, ~1.5 h)
+- `YSA_F26_readmission.ipynb` – notebook with all outputs (run on Kaggle Notebooks, 4 CPU cores, ~3.1 h)
 - `figures/` – all figures at 600 dpi
-- `results/` – all result tables (CSV)
+- `results/` – all result tables (CSV) and `run_environment.json` with the exact package versions used
 
 ## Data
 Clore, J., Cios, K., DeShazo, J., & Strack, B. (2014). Diabetes 130-US Hospitals for Years 1999–2008.
@@ -27,11 +30,3 @@ The notebook downloads the data automatically.
 ## Requirements
 Python 3.10+, scikit-learn >= 1.4, xgboost, tensorflow/keras, imbalanced-learn, pandas, numpy, scipy,
 matplotlib, seaborn (all preinstalled on Kaggle and Google Colab).
-
-## Revision notes
-- The original model training, sample splits, ROC-AUC, PR-AUC and F1 results are unchanged.
-- Paired bootstrap p-values now include a finite-resample continuity adjustment (B = 1000).
-- Encounter-level and patient-level experiments have distinct test sets; their difference is descriptive, not a causal leakage effect.
-- The main patient split is group-disjoint. The sklearn MLP's *internal* early-stopping validation is row-wise within its training fold, a documented limitation.
-- The Keras embedding model reserves 10% of its training patients for early stopping.
-- The GitHub URL shown in the reports must be opened and checked by the student before submission.
